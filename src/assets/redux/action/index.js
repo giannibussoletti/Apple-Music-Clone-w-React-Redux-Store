@@ -4,9 +4,7 @@ export const HANDLE_LOADING = "HANDLE_LOADING"
 export const handleFetchSong = (search) => {
   // eslint-disable-next-line no-unused-vars
   return (dispatch, getState) => {
-    fetch(
-      "https://striveschool-api.herokuapp.com/api/deezer/search?q=" + (search ? search : "queen"),
-    )
+    fetch("https://striveschool-api.herokuapp.com/api/deezer/search?q=" + (search || "queen"))
       .then((res) => {
         if (res.ok) {
           return res.json()

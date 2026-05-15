@@ -18,6 +18,7 @@ const Sidebar = () => {
             className="bg-transparent border-end-0 border-secondary"
             onClick={() => {
               dispatch(handleFetchSong(search))
+              setSearch("")
             }}>
             <FontAwesomeIcon
               icon="fa-solid fa-magnifying-glass"

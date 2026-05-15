@@ -9,7 +9,7 @@ const CardNovità = () => {
         <h1 className="fw-bold">Novità</h1>
         <hr />
       </Col>
-      <Row className="flex-nowrap overflow-scroll">
+      <Row className="flex-nowrap overflow-scroll mx-0">
         {imgAlphabet.map((img) => {
           return (
             <Col className="mb-5">
