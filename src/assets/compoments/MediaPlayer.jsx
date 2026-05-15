@@ -31,7 +31,6 @@ const MediaPlayer = () => {
               icon="fa-solid fa-pause"
               onClick={() => {
                 dispatch(pauseSongAction())
-                audioPlayer.current.pause()
               }}
             />
           ) : (
@@ -40,7 +39,6 @@ const MediaPlayer = () => {
               icon="fa-solid fa-play"
               onClick={() => {
                 dispatch(playSongAction())
-                audioPlayer.current.play()
               }}
             />
           )}
