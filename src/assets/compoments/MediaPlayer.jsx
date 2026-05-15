@@ -1,7 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Container, Row, Col } from "react-bootstrap"
+import { useSelector } from "react-redux"
 
 const MediaPlayer = () => {
+  const song = useSelector((reduxStore) => reduxStore.music.song)
+  const isPlaying = useSelector((reduxStore) => reduxStore.music.isPlaying)
   return (
     <Container
       className="position-sticky bg-secondary-subtle rounded-2"
@@ -20,8 +23,9 @@ const MediaPlayer = () => {
           {/* <FontAwesomeIcon size="2xl" icon="fa-solid fa-pause" /> */}
           <FontAwesomeIcon size="2xl" icon="fa-solid fa-forward" />
         </Col>
-        <audio src="">
-          <source src="" type="" />
+        {console.log(song.preview)}
+        <audio autoplay>
+          <source src={song.preview} type="audio/mp3" />
         </audio>
       </Row>
     </Container>
