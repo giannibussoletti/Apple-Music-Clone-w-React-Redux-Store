@@ -29,12 +29,13 @@ const App = function () {
     <Container fluid>
       <Row>
         <Col
-          xs="auto"
+          lg={4}
+          xxl={2}
           style={{ backgroundColor: "#252526" }}
-          className="d-none d-lg-block p-0 flex-shrink-1">
+          className="d-none d-lg-block p-0 m-0">
           <Sidebar />
         </Col>
-        <Col className="border-start border-2">
+        <Col md={12} lg={8} xxl={10} className="border-start border-2">
           <NavBar />
           <CardNovità />
           <RadioEpisode title="Nuovi episodi radio" icon={true} />
