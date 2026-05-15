@@ -15,6 +15,7 @@ const CoverSections = (props) => {
         : songs.slice(0, 12).map((single) => {
             return (
               <SingleAlbumOrSong
+                key={single.id}
                 cover={single.album.cover_big}
                 song={single.title_short}
                 artist={single.artist.name}

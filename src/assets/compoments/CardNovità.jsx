@@ -10,9 +10,9 @@ const CardNovità = () => {
         <hr />
       </Col>
       <Row className="flex-nowrap overflow-scroll mx-0">
-        {imgAlphabet.map((img) => {
+        {imgAlphabet.map((img, i) => {
           return (
-            <Col className="mb-5">
+            <Col key={img + i} className="mb-5">
               <p
                 className="text-uppercase fw-semibold text-secondary-subtle mb-0"
                 style={{ fontSize: "0.85rem" }}>

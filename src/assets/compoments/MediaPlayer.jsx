@@ -1,8 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Container, Row, Col } from "react-bootstrap"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 
+import { pauseSongAction, playSongAction } from "../redux/action"
 const MediaPlayer = () => {
+  const dispatch = useDispatch()
   const song = useSelector((reduxStore) => reduxStore.music.song)
   const isPlaying = useSelector((reduxStore) => reduxStore.music.isPlaying)
   return (
@@ -19,14 +21,33 @@ const MediaPlayer = () => {
         </Col>
         <Col></Col>
         <Col className="p-0 d-flex justify-content-end gap-2 pe-3">
-          <FontAwesomeIcon size="2xl" icon="fa-solid fa-play" />
-          {/* <FontAwesomeIcon size="2xl" icon="fa-solid fa-pause" /> */}
+          {isPlaying ? (
+            <FontAwesomeIcon
+              size="2xl"
+              icon="fa-solid fa-pause"
+              onClick={() => {
+                dispatch(pauseSongAction())
+              }}
+            />
+          ) : (
+            <FontAwesomeIcon
+              size="2xl"
+              icon="fa-solid fa-play"
+              onClick={() => {
+                dispatch(playSongAction())
+              }}
+            />
+          )}
           <FontAwesomeIcon size="2xl" icon="fa-solid fa-forward" />
         </Col>
         {console.log(song.preview)}
-        <audio autoplay>
-          <source src={song.preview} type="audio/mp3" />
-        </audio>
+        {song ? (
+          <audio autoPlay={true}>
+            <source src={song.preview} type="audio/mp3" />
+          </audio>
+        ) : (
+          ""
+        )}
       </Row>
     </Container>
   )

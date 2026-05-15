@@ -1,6 +1,27 @@
 export const GET_SONGS = "GET_SONGS"
 export const HANDLE_LOADING = "HANDLE_LOADING"
+export const PLAY_SONG_ALBUM = "PLAY_SONG_ALBUM"
 export const PLAY_SONG = "PLAY_SONG"
+export const PAUSE_SONG = "PAUSE_SONG"
+
+export const pauseSongAction = () => {
+  return {
+    type: PAUSE_SONG,
+  }
+}
+
+export const playSongAction = () => {
+  return {
+    type: PLAY_SONG,
+  }
+}
+
+export const playSongAlbumAction = (albumSong) => {
+  return {
+    type: PLAY_SONG_ALBUM,
+    payload: albumSong,
+  }
+}
 
 export const handleFetchSong = (search) => {
   // eslint-disable-next-line no-unused-vars

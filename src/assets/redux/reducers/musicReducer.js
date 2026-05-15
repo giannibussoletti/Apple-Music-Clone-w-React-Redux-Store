@@ -1,4 +1,4 @@
-import { PLAY_SONG } from "../action"
+import { PLAY_SONG_ALBUM, PLAY_SONG, PAUSE_SONG } from "../action"
 
 const initialState = {
   song: {},
@@ -7,11 +7,23 @@ const initialState = {
 
 const musicReducer = (state = initialState, action) => {
   switch (action.type) {
-    case PLAY_SONG:
+    case PLAY_SONG_ALBUM:
       return {
         ...state,
         song: action.payload,
         isPlaying: true,
+      }
+
+    case PLAY_SONG:
+      return {
+        ...state,
+        isPlaying: true,
+      }
+
+    case PAUSE_SONG:
+      return {
+        ...state,
+        isPlaying: false,
       }
 
     default:
