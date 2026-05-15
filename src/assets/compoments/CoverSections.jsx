@@ -18,6 +18,7 @@ const CoverSections = (props) => {
                 cover={single.album.cover_big}
                 song={single.title_short}
                 artist={single.artist.name}
+                id={single.id}
               />
             )
           })}

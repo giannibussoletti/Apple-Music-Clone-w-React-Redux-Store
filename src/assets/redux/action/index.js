@@ -1,5 +1,6 @@
 export const GET_SONGS = "GET_SONGS"
 export const HANDLE_LOADING = "HANDLE_LOADING"
+export const PLAY_SONG = "PLAY_SONG"
 
 export const handleFetchSong = (search) => {
   // eslint-disable-next-line no-unused-vars
