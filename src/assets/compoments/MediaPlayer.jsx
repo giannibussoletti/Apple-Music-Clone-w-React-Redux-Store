@@ -3,10 +3,14 @@ import { Container, Row, Col } from "react-bootstrap"
 import { useSelector, useDispatch } from "react-redux"
 
 import { pauseSongAction, playSongAction } from "../redux/action"
+import { useEffect, useRef, useState } from "react"
+
 const MediaPlayer = () => {
   const dispatch = useDispatch()
   const song = useSelector((reduxStore) => reduxStore.music.song)
   const isPlaying = useSelector((reduxStore) => reduxStore.music.isPlaying)
+  const audioPlayer = useRef()
+  const trySong = "wwry.mp3"
   return (
     <Container
       className="position-sticky bg-secondary-subtle rounded-2"
@@ -27,6 +31,7 @@ const MediaPlayer = () => {
               icon="fa-solid fa-pause"
               onClick={() => {
                 dispatch(pauseSongAction())
+                audioPlayer.current.pause()
               }}
             />
           ) : (
@@ -35,19 +40,16 @@ const MediaPlayer = () => {
               icon="fa-solid fa-play"
               onClick={() => {
                 dispatch(playSongAction())
+                audioPlayer.current.play()
               }}
             />
           )}
           <FontAwesomeIcon size="2xl" icon="fa-solid fa-forward" />
         </Col>
-        {console.log(song.preview)}
-        {song ? (
-          <audio autoPlay={true}>
-            <source src={song.preview} type="audio/mp3" />
-          </audio>
-        ) : (
-          ""
-        )}
+
+        <audio id="audio" ref={audioPlayer}>
+          <source src={song.preview || trySong} type="audio/mp3" />
+        </audio>
       </Row>
     </Container>
   )
