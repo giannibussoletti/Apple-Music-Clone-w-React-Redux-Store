@@ -15,8 +15,7 @@ const SingleAlbumOrSong = (props) => {
       className="mb-3"
       onClick={() => {
         const singleSong = songs.filter((singleSong) => singleSong.id === props.id)
-
-        dispatch(playSongAlbumAction(singleSong[0]))
+        dispatch(playSongAlbumAction(singleSong[0].preview))
       }}>
       <Image className="w-100" src={props.cover} />
       <p className="m-0 mt-2">{props.song}</p>

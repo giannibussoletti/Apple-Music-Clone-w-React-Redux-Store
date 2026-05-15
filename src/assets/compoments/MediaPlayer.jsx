@@ -3,14 +3,14 @@ import { Container, Row, Col } from "react-bootstrap"
 import { useSelector, useDispatch } from "react-redux"
 
 import { pauseSongAction, playSongAction } from "../redux/action"
-import { useEffect, useRef, useState } from "react"
+import { useRef } from "react"
 
 const MediaPlayer = () => {
   const dispatch = useDispatch()
   const song = useSelector((reduxStore) => reduxStore.music.song)
   const isPlaying = useSelector((reduxStore) => reduxStore.music.isPlaying)
   const audioPlayer = useRef()
-  const trySong = "wwry.mp3"
+
   return (
     <Container
       className="position-sticky bg-secondary-subtle rounded-2"
@@ -48,7 +48,7 @@ const MediaPlayer = () => {
         </Col>
 
         <audio id="audio" ref={audioPlayer}>
-          <source src={song.preview || trySong} type="audio/mp3" />
+          <source src={song} type="audio/mp3" />
         </audio>
       </Row>
     </Container>
