@@ -13,6 +13,7 @@ const RadioEpisode = (props) => {
             key={i + radio}
             cover={"images/2" + radio + ".png"}
             song="Song Placeholder"
+            isPlayable={false}
           />
         )
       })}

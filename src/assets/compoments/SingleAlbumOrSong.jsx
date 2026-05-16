@@ -8,6 +8,7 @@ const SingleAlbumOrSong = (props) => {
 
   return (
     <Col
+      style={props.isPlayable ? { cursor: "pointer" } : {}}
       xs={12}
       sm={6}
       md={3}
@@ -15,7 +16,7 @@ const SingleAlbumOrSong = (props) => {
       className="mb-3"
       onClick={() => {
         const singleSong = songs.filter((singleSong) => singleSong.id === props.id)
-        dispatch(playSongAlbumAction(singleSong[0]))
+        props.isPlayable ? dispatch(playSongAlbumAction(singleSong[0])) : ""
       }}>
       <Image className="w-100" src={props.cover} />
       <p className="m-0 mt-2">{props.song}</p>

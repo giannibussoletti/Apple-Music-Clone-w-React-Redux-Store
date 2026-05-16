@@ -49,3 +49,14 @@ export const handleFetchSong = (search) => {
       })
   }
 }
+
+export const playPromiseAction = (audio, song) => {
+  audio.src = song
+  audio
+    .play()
+    // eslint-disable-next-line no-unused-vars
+    .then((_) => {})
+    .catch((err) => {
+      console.log("Errore play:", err)
+    })
+}

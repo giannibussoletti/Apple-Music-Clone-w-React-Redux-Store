@@ -1,28 +1,25 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { Container, Row, Col, Image, Form } from "react-bootstrap"
+
+import { Container, Row, Col, Image } from "react-bootstrap"
 import { useSelector, useDispatch } from "react-redux"
 
-import { pauseSongAction, playSongAction } from "../redux/action"
+import { pauseSongAction, playPromiseAction, playSongAction } from "../redux/action"
 import { useEffect, useRef } from "react"
 
 const MediaPlayer = () => {
   const dispatch = useDispatch()
   const song = useSelector((reduxStore) => reduxStore.music.song)
   const isPlaying = useSelector((reduxStore) => reduxStore.music.isPlaying)
-  const audioPlayer = useRef()
+  const audioPlayer = useRef(null)
+  const audio = audioPlayer.current
 
   useEffect(() => {
-    const audio = audioPlayer.current
-    audio.src = song.preview
-
     if (isPlaying) {
-      audio.play().catch((err) => {
-        console.log("Errore play:", err)
-      })
-    } else {
-      audio.pause()
+      playPromiseAction(audio, song.preview)
     }
-  }, [song, isPlaying])
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [song])
 
   return (
     <Container
@@ -30,7 +27,7 @@ const MediaPlayer = () => {
       style={{ maxWidth: "400px", bottom: "1rem" }}>
       <Row className=" justify-content-between align-items-center p-2">
         <Col xs="auto" className="p-0">
-          {song ? (
+          {song?.album?.cover ? (
             <Image style={{ maxHeight: "56px" }} src={song.album.cover} />
           ) : (
             <FontAwesomeIcon
@@ -43,21 +40,21 @@ const MediaPlayer = () => {
         <Col className=" overflow-scroll">
           <div className="overflow-scroll hiding-scrollbar">
             <p className="m-0" style={{ whiteSpace: "nowrap" }}>
-              {song ? song.title_short : ""}
+              {song?.title_short ?? ""}
             </p>
           </div>
           <p style={{ fontSize: ".8rem" }} className=" text-secondary">
-            {song ? song.artist.name : ""}
+            {song?.artist?.name ?? ""}
           </p>
-          {isPlaying || song ? <Form.Range /> : <Form.Range disabled />}
         </Col>
-        <Col className="p-0 d-flex justify-content-end gap-2 pe-3">
+        <Col xs={3} className="p-0 d-flex justify-content-end gap-2 pe-3">
           {isPlaying ? (
             <FontAwesomeIcon
               size="2xl"
               icon="fa-solid fa-pause"
               onClick={() => {
                 dispatch(pauseSongAction())
+                audio.pause()
               }}
             />
           ) : (
@@ -66,12 +63,13 @@ const MediaPlayer = () => {
               icon="fa-solid fa-play"
               onClick={() => {
                 dispatch(playSongAction())
+                audio.play()
               }}
             />
           )}
           <FontAwesomeIcon size="2xl" icon="fa-solid fa-forward" />
         </Col>
-        <audio id="audio" ref={audioPlayer} src={song.preview} />
+        <audio id="audio" ref={audioPlayer} src={song?.preview} preload="metadata" />
       </Row>
     </Container>
   )

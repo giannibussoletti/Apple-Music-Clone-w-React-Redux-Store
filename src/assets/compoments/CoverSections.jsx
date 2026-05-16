@@ -20,6 +20,7 @@ const CoverSections = (props) => {
                 song={single.title_short}
                 artist={single.artist.name}
                 id={single.id}
+                isPlayable={true}
               />
             )
           })}
