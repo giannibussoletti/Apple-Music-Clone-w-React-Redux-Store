@@ -1,4 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css"
+import "./assets/style.css"
 // Compoment
 import NavBar from "./assets/compoments/NavBar"
 import CoverSections from "./assets/compoments/CoverSections"
@@ -13,6 +14,7 @@ import { Col, Container, Row } from "react-bootstrap"
 import { handleFetchSong } from "./assets/redux/action"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
+
 /* FontAwesome */
 import { library } from "@fortawesome/fontawesome-svg-core"
 import { fas } from "@fortawesome/free-solid-svg-icons"
