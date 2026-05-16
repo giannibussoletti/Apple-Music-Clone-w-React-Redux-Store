@@ -7,16 +7,18 @@ const RadioEpisode = (props) => {
   return (
     <Row className="mt-5">
       <TitleHFour title={props.title} icon={props.icon} />
-      {imgName.map((radio, i) => {
-        return (
-          <SingleAlbumOrSong
-            key={i + radio}
-            cover={"images/2" + radio + ".png"}
-            song="Song Placeholder"
-            isPlayable={false}
-          />
-        )
-      })}
+      <Row className="flex-nowrap overflow-scroll mx-0">
+        {imgName.map((radio, i) => {
+          return (
+            <SingleAlbumOrSong
+              key={i + radio}
+              cover={"images/2" + radio + ".png"}
+              song="Song Placeholder"
+              isPlayable={false}
+            />
+          )
+        })}
+      </Row>
     </Row>
   )
 }
