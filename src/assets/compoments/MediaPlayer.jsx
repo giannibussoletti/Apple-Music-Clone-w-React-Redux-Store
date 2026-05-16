@@ -10,6 +10,7 @@ const MediaPlayer = () => {
   const song = useSelector((reduxStore) => reduxStore.music.song)
   const isPlaying = useSelector((reduxStore) => reduxStore.music.isPlaying)
   const audioPlayer = useRef()
+
   useEffect(() => {
     const audio = audioPlayer.current
     audio.src = song.preview
@@ -29,7 +30,7 @@ const MediaPlayer = () => {
       style={{ maxWidth: "400px", bottom: "1rem" }}>
       <Row className=" justify-content-between align-items-center p-2">
         <Col xs="auto" className="p-0">
-          {isPlaying ? (
+          {song ? (
             <Image style={{ maxHeight: "56px" }} src={song.album.cover} />
           ) : (
             <FontAwesomeIcon
@@ -42,13 +43,13 @@ const MediaPlayer = () => {
         <Col className=" overflow-scroll">
           <div className="overflow-scroll hiding-scrollbar">
             <p className="m-0" style={{ whiteSpace: "nowrap" }}>
-              {isPlaying ? song.title_short : ""}
+              {song ? song.title_short : ""}
             </p>
           </div>
           <p style={{ fontSize: ".8rem" }} className=" text-secondary">
-            {isPlaying ? song.artist.name : ""}
+            {song ? song.artist.name : ""}
           </p>
-          <Form.Range />
+          {isPlaying || song ? <Form.Range /> : <Form.Range disabled />}
         </Col>
         <Col className="p-0 d-flex justify-content-end gap-2 pe-3">
           {isPlaying ? (
