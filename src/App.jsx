@@ -31,7 +31,7 @@ const App = function () {
   }, [])
 
   return (
-    <Container fluid>
+    <Container fluid className="p-0">
       <Row className="m-0">
         <Col
           lg={4}

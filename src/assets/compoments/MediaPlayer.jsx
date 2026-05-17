@@ -1,13 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-
 import { Container, Row, Col, Image, Form } from "react-bootstrap"
-import { useSelector, useDispatch } from "react-redux"
 
-import { pauseSongAction, playPromiseAction, playSongAction } from "../redux/action"
+import { useSelector, useDispatch } from "react-redux"
 import { useEffect, useRef, useState } from "react"
+
+import { pauseSongAction, playPromiseAction, playSongAction, calcTimeAction } from "../redux/action"
 
 const MediaPlayer = () => {
   const dispatch = useDispatch()
+
   const song = useSelector((reduxStore) => reduxStore.music.song)
   const isPlaying = useSelector((reduxStore) => reduxStore.music.isPlaying) || false
   const audioPlayer = useRef(null)
@@ -22,18 +23,13 @@ const MediaPlayer = () => {
     if (isPlaying) {
       playPromiseAction(audio, song.preview)
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [song])
 
   useEffect(() => {
     if (isPlaying) {
       const updateTime = () => {
-        const minutes = Math.floor(audio.currentTime / 60)
-        const seconds = Math.floor(audio.currentTime % 60)
-        const currSeconds = seconds < 10 ? "0" + seconds : seconds
-        const currMin = seconds < 10 ? "0" + minutes : minutes
-        setSongTime(currMin + ":" + currSeconds)
+        setSongTime(calcTimeAction(audio.currentTime))
         setValueRange(audio.currentTime)
       }
       audio.addEventListener("timeupdate", updateTime)
@@ -45,11 +41,7 @@ const MediaPlayer = () => {
   useEffect(() => {
     if (isPlaying) {
       const getTotalTime = () => {
-        const minutes = Math.floor(audio.duration / 60)
-        const seconds = Math.floor(audio.duration % 60)
-        const currSeconds = seconds < 10 ? "0" + seconds : seconds
-        const currMin = seconds < 10 ? "0" + minutes : minutes
-        setSongTimeTotal(currMin + ":" + currSeconds)
+        setSongTimeTotal(calcTimeAction(audio.duration))
       }
       audio.addEventListener("loadedmetadata", getTotalTime)
 

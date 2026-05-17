@@ -60,3 +60,12 @@ export const playPromiseAction = (audio, song) => {
       console.log("Errore play:", err)
     })
 }
+
+// Calcolo minuti e secondi
+export const calcTimeAction = (audio) => {
+  const minutes = Math.floor(audio / 60)
+  const seconds = Math.floor(audio % 60)
+  const currSeconds = seconds < 10 ? "0" + seconds : seconds
+  const currMin = seconds < 10 ? "0" + minutes : minutes
+  return currMin + ":" + currSeconds
+}
