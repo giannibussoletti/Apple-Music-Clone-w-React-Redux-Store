@@ -27,7 +27,7 @@ const MediaPlayer = () => {
   }, [song])
 
   useEffect(() => {
-    if (isPlaying) {
+    if (audio) {
       const updateTime = () => {
         setSongTime(calcTimeAction(audio.currentTime))
         setValueRange(audio.currentTime)
@@ -39,7 +39,7 @@ const MediaPlayer = () => {
   }, [audio, isPlaying])
 
   useEffect(() => {
-    if (isPlaying) {
+    if (audio) {
       const getTotalTime = () => {
         setSongTimeTotal(calcTimeAction(audio.duration))
       }
