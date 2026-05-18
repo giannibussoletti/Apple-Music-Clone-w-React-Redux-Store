@@ -12,7 +12,7 @@ import MediaPlayer from "./assets/compoments/MediaPlayer"
 //
 import { Col, Container, Row } from "react-bootstrap"
 import { handleFetchSong } from "./assets/redux/action"
-import { useEffect } from "react"
+import { Activity, useEffect } from "react"
 import { useDispatch } from "react-redux"
 
 /* FontAwesome */
@@ -24,7 +24,7 @@ library.add(fas, far, fab)
 
 const App = function () {
   const dispatch = useDispatch()
-
+  const windowWidth = window.innerWidth > 992
   useEffect(() => {
     dispatch(handleFetchSong())
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -47,7 +47,9 @@ const App = function () {
           <CoverSections title="Nuove uscite" icon={true} />
           <Explore />
           <Footer />
-          <MediaPlayer />
+          <Activity mode={windowWidth ? "hidden" : "visible"}>
+            <MediaPlayer />
+          </Activity>
         </Col>
       </Row>
     </Container>
