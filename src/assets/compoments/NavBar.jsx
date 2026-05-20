@@ -1,6 +1,12 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Col, Form, Image, Row, Button } from "react-bootstrap"
-import { pauseSongAction, playPromiseAction, playSongAction, calcTimeAction } from "../redux/action"
+import {
+  pauseSongAction,
+  playPromiseAction,
+  playSongAction,
+  calcTimeAction,
+  volumeSet,
+} from "../redux/action"
 import { useSelector, useDispatch } from "react-redux"
 import { useEffect, useRef, useState } from "react"
 
@@ -15,8 +21,7 @@ const NavBar = () => {
   const [songTime, setSongTime] = useState("00:00")
   const [valueRange, setValueRange] = useState(0)
   const [songTimeTotal, setSongTimeTotal] = useState("00:00")
-
-  const volumeSet = (target) => Number((target / 100).toString().slice(0, 4))
+  const [audioVolume, setAudioVolume] = useState(100)
 
   useEffect(() => {
     setAudio(audioPlayer.current)
@@ -122,11 +127,13 @@ const NavBar = () => {
           <div className="d-flex justify-content-center align-items-center gap-2">
             <FontAwesomeIcon icon="fa-solid fa-volume" />
             <Form.Range
+              value={audioVolume}
               onChange={(e) => {
+                console.log(e.target.valueAsNumber)
+                setAudioVolume(e.target.valueAsNumber)
                 audioPlayer.current.volume = volumeSet(e.target.valueAsNumber)
               }}
             />
-            {/* value={volume}  */}
           </div>
 
           <Button

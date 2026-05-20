@@ -12,28 +12,38 @@ const Sidebar = () => {
     <Row className="px-4">
       <Row>
         <Image className="py-3 px-0" style={{ maxWidth: "120px" }} src="logos/music.svg" />
-        <InputGroup className="mb-3 px-0">
-          <InputGroup.Text
-            as={Button}
-            className="bg-transparent border-end-0 border-secondary"
-            onClick={() => {
+        <Form
+          onSubmit={(e) => {
+            e.preventDefault()
+            if (e.key === 13) {
               dispatch(handleFetchSong(search))
               setSearch("")
-            }}>
-            <FontAwesomeIcon
-              icon="fa-solid fa-magnifying-glass"
-              style={{ color: "rgb(250, 88, 106)" }}
+            }
+          }}>
+          <InputGroup className="mb-3 px-0">
+            <InputGroup.Text
+              as={Button}
+              type="submit"
+              className="bg-transparent border-end-0 border-secondary"
+              onClick={() => {
+                dispatch(handleFetchSong(search))
+                setSearch("")
+              }}>
+              <FontAwesomeIcon
+                icon="fa-solid fa-magnifying-glass"
+                style={{ color: "rgb(250, 88, 106)" }}
+              />
+            </InputGroup.Text>
+            <Form.Control
+              className="border-start-0 border-secondary"
+              placeholder="Cerca..."
+              value={search}
+              onChange={(e) => {
+                setSearch(e.target.value)
+              }}
             />
-          </InputGroup.Text>
-          <Form.Control
-            className="border-start-0 border-secondary"
-            placeholder="Cerca..."
-            value={search}
-            onChange={(e) => {
-              setSearch(e.target.value)
-            }}
-          />
-        </InputGroup>
+          </InputGroup>
+        </Form>
       </Row>
       <Row className="flex-column gap-2 p-0">
         <Col className="py-2">

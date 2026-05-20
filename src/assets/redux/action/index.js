@@ -69,3 +69,5 @@ export const calcTimeAction = (audio) => {
   const currMin = seconds < 10 ? "0" + minutes : minutes
   return currMin + ":" + currSeconds
 }
+
+export const volumeSet = (target) => Number((target / 100).toString().slice(0, 4))
