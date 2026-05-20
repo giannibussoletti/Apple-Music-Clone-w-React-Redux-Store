@@ -1,0 +1,20 @@
+.hiding-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hiding-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+$form-range-track-bg: #9b9b9b;
+$form-range-track-border-radius: 0;
+$form-range-track-height: 0.5rem;
+
+$form-range-thumb-width: 0.3rem;
+$form-range-thumb-height: 0.8rem;
+$form-range-thumb-border-radius: 0;
+$form-range-thumb-bg: white;
+
+@import "~bootstrap/scss/bootstrap";

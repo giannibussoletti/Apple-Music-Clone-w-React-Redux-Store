@@ -1,7 +1,8 @@
 import "bootstrap/dist/css/bootstrap.min.css"
-import "./assets/style.css"
+import "./assets/sass/App.css"
 // Compoment
 import NavBar from "./assets/compoments/NavBar"
+import NavbarMobile from "./assets/compoments/NavbarMobile"
 import CoverSections from "./assets/compoments/CoverSections"
 import CardNovità from "./assets/compoments/CardNovità"
 import Explore from "./assets/compoments/Explore"
@@ -41,7 +42,13 @@ const App = function () {
           <Sidebar />
         </Col>
         <Col md={12} lg={8} xxl={10} className="border-start border-2 position-relative">
-          <NavBar />
+          <Activity mode={windowWidth ? "visible" : "hidden"}>
+            <NavBar />
+          </Activity>
+          <Activity mode={windowWidth ? "hidden" : "visible"}>
+            <NavbarMobile />
+          </Activity>
+
           <CardNovità />
           <RadioEpisode title="Nuovi episodi radio" icon={true} />
           <CoverSections title="Nuove uscite" icon={true} />

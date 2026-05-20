@@ -15,6 +15,9 @@ const NavBar = () => {
   const [songTime, setSongTime] = useState("00:00")
   const [valueRange, setValueRange] = useState(0)
   const [songTimeTotal, setSongTimeTotal] = useState("00:00")
+  const [volume, setVolume] = useState(0.5)
+
+  const volumeSet = (target) => Number((target / 100).toString().slice(0, 4))
 
   useEffect(() => {
     setAudio(audioPlayer.current)
@@ -49,8 +52,10 @@ const NavBar = () => {
 
   return (
     <>
-      <Row className="px-4 bg-light-subtle">
-        <Col>
+      <Row
+        className="bg-dark align-items-center justify-content-between py-1 bg-dark-subtle"
+        style={{ height: "60px" }}>
+        <Col className="d-flex justify-content-center align-items-center gap-2">
           <FontAwesomeIcon icon="fa-solid fa-shuffle" />
           <FontAwesomeIcon icon="fa-solid fa-backward" />
           {isPlaying ? (
@@ -75,38 +80,63 @@ const NavBar = () => {
           <FontAwesomeIcon icon="fa-solid fa-forward" />
           <FontAwesomeIcon icon="fa-solid fa-repeat" />
         </Col>
-        <Col className=" overflow-scroll">
-          {song ? (
-            <>
-              <div className="overflow-scroll hiding-scrollbar">
-                <p className="m-0" style={{ whiteSpace: "nowrap" }}>
-                  {song?.title_short ?? ""}
-                </p>
-              </div>
-              <p style={{ fontSize: ".8rem" }} className=" text-secondary">
-                {song?.artist?.name ?? ""}
-              </p>
-              <Form.Range
-                min={0}
-                max={audio?.duration || 0}
-                value={valueRange}
-                onChange={(e) => (audioPlayer.current.currentTime = e.target.valueAsNumber)}
-              />
-              <p>
-                {songTime}/{songTimeTotal}
-              </p>
-            </>
-          ) : (
-            <Image src="./logos/apple.svg" />
-          )}
+        <Col className="bg-light-subtle rounded-1 h-75">
+          <Row className="h-100">
+            {song?.album?.cover ? (
+              <>
+                <Col xs="auto" className="p-0 h-100">
+                  <Image src={song.album.cover} className="h-100" />
+                </Col>
+                <Col className="overflow-scroll text-center position-relative overflow-y-hidden form-range-p">
+                  <div className="overflow-scroll hiding-scrollbar mx-auto">
+                    <p className="m-0 small" style={{ whiteSpace: "nowrap", fontSize: ".8rem" }}>
+                      {song.title_short}
+                    </p>
+                  </div>
+                  <p style={{ fontSize: ".6rem" }} className=" text-secondary m-0">
+                    {song.artist.name}
+                  </p>
+
+                  <p
+                    className="m-0 position-absolute"
+                    style={{ fontSize: ".7rem", bottom: ".3rem", right: ".3rem" }}>
+                    {songTime}/{songTimeTotal}
+                  </p>
+                  <Form.Range
+                    min={0}
+                    style={{ bottom: "-.7rem" }}
+                    className="m-0 p-0 w-100 start-0 position-absolute"
+                    max={audio?.duration || 0}
+                    value={valueRange}
+                    onChange={(e) => (audioPlayer.current.currentTime = e.target.valueAsNumber)}
+                  />
+                </Col>
+              </>
+            ) : (
+              <Col className="d-flex align-items-center justify-content-center">
+                <Image style={{ maxHeight: "30px" }} src="./logos/apple.svg" />
+              </Col>
+            )}
+          </Row>
         </Col>
-        <Col>
-          <FontAwesomeIcon icon="fa-solid fa-volume" />
-          <Form.Range />
-        </Col>
-        <Col>
-          <Button className="fw-bold border-0" style={{ backgroundColor: "rgb(250, 88, 106)" }}>
-            <FontAwesomeIcon icon="fa-solid fa-user" /> Accedi
+        <Col className="d-flex justify-content-center align-items-center gap-2">
+          <div className="d-flex justify-content-center align-items-center gap-2">
+            <FontAwesomeIcon icon="fa-solid fa-volume" />
+            <Form.Range
+              onChange={(e) => {
+                audioPlayer.current.volume = volumeSet(e.target.valueAsNumber)
+                setVolume(volumeSet(e.target.valueAsNumber))
+              }}
+            />
+            {/* value={volume}  */}
+          </div>
+
+          <Button
+            className="fw-bold border-0 ms-auto"
+            style={{ backgroundColor: "rgb(250, 88, 106)" }}>
+            <span style={{ whiteSpace: "nowrap" }}>
+              <FontAwesomeIcon icon="fa-solid fa-user" /> Accedi
+            </span>
           </Button>
         </Col>
         <audio ref={audioPlayer} src={song?.preview} preload="metadata" />
