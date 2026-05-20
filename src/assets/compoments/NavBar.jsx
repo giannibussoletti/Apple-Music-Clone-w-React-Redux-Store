@@ -15,7 +15,6 @@ const NavBar = () => {
   const [songTime, setSongTime] = useState("00:00")
   const [valueRange, setValueRange] = useState(0)
   const [songTimeTotal, setSongTimeTotal] = useState("00:00")
-  const [volume, setVolume] = useState(0.5)
 
   const volumeSet = (target) => Number((target / 100).toString().slice(0, 4))
 
@@ -125,7 +124,6 @@ const NavBar = () => {
             <Form.Range
               onChange={(e) => {
                 audioPlayer.current.volume = volumeSet(e.target.valueAsNumber)
-                setVolume(volumeSet(e.target.valueAsNumber))
               }}
             />
             {/* value={volume}  */}
